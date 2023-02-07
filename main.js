@@ -1,14 +1,14 @@
-const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
 
-const currentValueText = $('.current')
-const preValueText = $('.previous')
-const numberBtns = $$('.btn-number')
-const operationBtns = $$('.btn-operation')
-const clearBtn = $('.btn-clear')
-const deleteBtn = $('.btn-delete')
-const equalBtn = $('.btn-equal')
-const dotBtn = $('.btn-dot')
+const currentValueText = $('.current');
+const preValueText = $('.previous');
+const numberBtns = $$('.btn-number');
+const operationBtns = $$('.btn-operation');
+const clearBtn = $('.btn-clear');
+const deleteBtn = $('.btn-delete');
+const equalBtn = $('.btn-equal');
+const dotBtn = $('.btn-dot');
 let count = 0;
 
 class calculatorMain {
@@ -27,14 +27,14 @@ class calculatorMain {
   delete() {
     if (this.currentValue != "Error") {
       this.currentValue = this.currentValue.slice(0, -1);
-    }
+    };
   }
 
   addNumber(number) {
     count = 0;
     if (this.currentValue != "Error") {
       this.currentValue +=  number;
-    }
+    };
   }
 
   checkDots(dot) {
@@ -42,11 +42,6 @@ class calculatorMain {
       this.currentValue += dot;
     }
     let currentValueArray = this.currentValue.split('');
-    // if (currentValueArray.includes('.') && currentValueArray.lastIndexOf('.') != currentValueArray.indexOf('.')) {
-    //   console.log('hello')
-    //   currentValueArray.splice(-1, 1)
-    // }
-    // console.log(currentValueArray);
     if ( (currentValueArray[currentValueArray.length - 1 ]) === (currentValueArray[currentValueArray.length - 2 ]) ){
       currentValueArray.splice(-1, 1);
     }
@@ -135,13 +130,13 @@ deleteBtn.addEventListener('click', () => {
   calculatorObj.render();
 })
 // type keyboard
-document.addEventListener('keydown', e => {
+window.addEventListener('keydown', e => {
   if (e.keyCode > 48 && e.keyCode <= 56 && !e.shiftKey || e.keyCode == 57 || e.keyCode == 48) {
     calculatorObj.addNumber(e.key);
     calculatorObj.render();
   }
-  if (e.keyCode == 188 || (e.keyCode == 190 && !e.shiftKey)) {
-    calculatorObj.addNumber(".");
+  if (e.keyCode == 188 && !e.shiftKey || (e.keyCode == 190 && !e.shiftKey)) {
+    calculatorObj.checkDots(".");
     calculatorObj.render();
   }
   if ((e.keyCode == 189 && !e.shiftKey ) || ( e.keyCode == 187 && e.shiftKey ) || ( e.keyCode == 56 && e.shiftKey ) || ( e.keyCode == 191 && !e.shiftKey )) {
